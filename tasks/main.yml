@@ -1,0 +1,104 @@
+---
+# tasks file for ansible_role_deploy_nextcloud_with_mariadb_pod
+- name: Main folder, needed for updating
+  containers.podman.podman_volume:
+    state: present
+    name: "{{ NC_HTML }}"
+    recreate: no
+    debug: no
+
+- name: Volume for installed/modified apps
+  containers.podman.podman_volume:
+    state: present
+    name: "{{ NC_APPS }}"
+    recreate: no
+    debug: no
+
+- name: Volume for local configuration
+  containers.podman.podman_volume:
+    state: present
+    name: "{{ NC_CONFIG }}"
+    recreate: no
+    debug: no
+
+- name: Volume for the actual data of Nextcloud
+  containers.podman.podman_volume:
+    state: present
+    name: "{{ NC_DATA }}"
+    recreate: no
+    debug: no
+
+- name: Volume for the MySQL data files
+  containers.podman.podman_volume:
+    state: present
+    name: "{{ MYSQL_DATA }}"
+    recreate: no
+    debug: no
+
+- name: Create the podman-pod(1)
+  containers.podman.podman_pod:
+    debug: no
+    generate_systemd:
+      path: "{{ POD_SYSTEMD_PATH }}"
+    infra: yes
+    infra_conmon_pidfile: "{{ POD_INFRA_CONMON_PIDFILE }}"
+    infra_name: "{{ POD_INFRA_NAME }}"
+    publish: "{{ POD_PORT }}"
+    name: "{{ POD_NAME }}"
+    state: started
+
+- name: Create MariaDB container
+  containers.podman.podman_container:
+    debug: yes
+    conmon_pidfile: "{{ MARIADB_CONMON_PIDFILE }}"
+    generate_systemd:
+      path: "{{ MARIADB_SYSTEMD_PATH }}"
+    image: "{{ MARIADB_IMAGE }}"
+    image_strict: yes
+    pod: "{{ POD_NAME }}"
+    recreate: yes
+    state: started
+    name: "{{ MARIADB_NAME }}"
+    env:
+      MYSQL_USER: "{{ MYSQL_USER }}"
+      MYSQL_PASSWORD: "{{ MYSQL_PASSWORD }}"
+      MYSQL_ROOT_PASSWORD: "{{ MYSQL_ROOT_PASSWORD }}"
+      MYSQL_DATABASE: "{{ MYSQL_DATABASE }}"
+    volume: "{{ MYSQL_DATA }}:/var/lib/mysql:Z"
+
+- name: Wait for DB to initilize
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
+
+- name: Create Nextcloud container
+  containers.podman.podman_container:
+    debug: no 
+    conmon_pidfile: "{{ NC_CONMON_PIDFILE }}"
+    generate_systemd:
+      path: "{{ NC_SYSTEMD_PATH }}"
+    image: "{{ NC_IMAGE }}"
+    image_strict: yes
+    pod: "{{ POD_NAME }}"
+    recreate: yes
+    state: started
+    name: "{{ NC_NAME }}"
+    env:
+      MYSQL_DATABASE: "{{ MYSQL_DATABASE }}"
+      MYSQL_USER: "{{ MYSQL_USER }}"
+      MYSQL_PASSWORD: "{{ MYSQL_PASSWORD }}"
+      MYSQL_HOST: "{{ MYSQL_HOST }}"
+      NEXTCLOUD_ADMIN_USER: "{{ NEXTCLOUD_ADMIN_USER }}"
+      NEXTCLOUD_ADMIN_PASSWORD: "{{ NEXTCLOUD_ADMIN_PASSWORD }}"
+      SMTP_HOST: "{{ SMTP_HOST }}"
+      SMTP_SECURE: "{{ SMTP_SECURE }}"
+      SMTP_PORT: "{{ SMTP_PORT }}"
+      SMTP_AUTHTYPE: "{{ SMTP_AUTHTYPE }}"
+      SMTP_NAME: "{{ SMTP_NAME }}"
+      SMTP_PASSWORD: "{{ SMTP_PASSWORD }}"
+      MAIL_FROM_ADDRESS: "{{ MAIL_FROM_ADDRESS }}"
+    volume:
+      - "{{ NC_HTML }}:/var/www/html:Z"
+      - "{{ NC_APPS }}:/var/www/html/custom_apps:Z"
+      - "{{ NC_CONFIG }}:/var/www/html/config:Z"
+      - "{{ NC_DATA }}:/var/www/html/data:Z"
