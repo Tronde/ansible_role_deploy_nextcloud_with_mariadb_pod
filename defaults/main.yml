@@ -10,11 +10,11 @@ NC_DATA: nc_data
 MYSQL_DATA: mysql_data
 
 # MySQL/MariaDB vars
-MYSQL_DATABASE: nextcloud
+MYSQL_DATABASE: nc_db
 MYSQL_USER: nextcloud
 MYSQL_PASSWORD: ToPSeCrEt2021!
 MYSQL_ROOT_PASSWORD: ToPSeCrEt2021!
-MYSQL_HOST: localhost
+MYSQL_HOST: 127.0.0.1
 
 # Vars for MariaDB container
 MARIADB_SYSTEMD_PATH: ~/.config/systemd/user/
