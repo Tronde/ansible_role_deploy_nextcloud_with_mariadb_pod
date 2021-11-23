@@ -37,7 +37,6 @@ MAIL_FROM_ADDRESS: no-reply@example.com
 
 # Vars for podman-pod(1)
 POD_NAME: nc_pod
-POD_INFRA_NAME: nc_pod_infra
 POD_PORT: 80
 POD_INFRA_CONMON_PIDFILE: /tmp/nc_pod_infra.pid
 POD_SYSTEMD_PATH: ~/.config/systemd/user/

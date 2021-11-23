@@ -42,7 +42,6 @@
       path: "{{ POD_SYSTEMD_PATH }}"
     infra: yes
     infra_conmon_pidfile: "{{ POD_INFRA_CONMON_PIDFILE }}"
-    infra_name: "{{ POD_INFRA_NAME }}"
     publish: "{{ POD_PORT }}"
     name: "{{ POD_NAME }}"
     state: started
@@ -68,8 +67,7 @@
 
 - name: Wait for DB to initilize
   wait_for:
-    timeout: 30
-  delegate_to: localhost
+    timeout: 20
 
 - name: Create Nextcloud container
   containers.podman.podman_container:

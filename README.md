@@ -1,9 +1,14 @@
 Deploy Nextcloud with MariaDB in a Podman Pod
 =============================================
 
-**Warning:** This role is still under development and not ready to use, yet.
-
 Deploy Nextcloud and MariaDB container as podman-pod(1).
+
+**Warning:** This role is still under development and not ready to use in
+production, yet. But comments and feedback on this role are much appreciated.
+
+This role was tested on Fedora 35 and Debian 11 (Bullseye) so far. Please let
+me know if you run it with other Distributions and version, so I can add them
+to _meta/main.yml_.
 
 Requirements
 ------------
@@ -14,7 +19,9 @@ Role Variables
 --------------
 
 All variables needed to deploy a pod containing containers for Nextcloud and
-MariaDB are defined in _defaults/main.yml_ and filled with example values.
+MariaDB are defined in _defaults/main.yml_ and filled with example values. You
+have to change this values or set them in _vars/main.yml_ to fit your needs.
+Please keep your passwords secret. Use ansible-vault(1) to protect them.
 
 ### Variables in defaults/main.yml
 
