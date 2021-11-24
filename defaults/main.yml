@@ -17,7 +17,6 @@ MYSQL_ROOT_PASSWORD: ToPSeCrEt2021!
 MYSQL_HOST: 127.0.0.1
 
 # Vars for MariaDB container
-MARIADB_SYSTEMD_PATH: ~/.config/systemd/user/
 MARIADB_CONMON_PIDFILE: /tmp/mariadb_conmon.pid
 MARIADB_IMAGE: docker.io/library/mariadb:10.5.7
 MARIADB_NAME: nc_mariadb
@@ -39,10 +38,8 @@ MAIL_FROM_ADDRESS: no-reply@example.com
 POD_NAME: nc_pod
 POD_PORT: 80
 POD_INFRA_CONMON_PIDFILE: /tmp/nc_pod_infra.pid
-POD_SYSTEMD_PATH: ~/.config/systemd/user/
 
 # Vars for Nextcloud container
 NC_CONMON_PIDFILE: /tmp/nc_conmon.pid
-NC_SYSTEMD_PATH: ~/.config/systemd/user/
 NC_IMAGE: docker.io/library/nextcloud:22.2-apache
 NC_NAME: nextcloud
