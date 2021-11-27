@@ -35,23 +35,9 @@
     recreate: no
     debug: no
 
-- name: Get current users homedir
-  ansible.builtin.shell: "echo $HOME"
-  register: ACCOUNT_HOMEDIR
-  changed_when: false
-  check_mode: no
-
-- name: Create SYSTEMD USER UNIT directory if it doesn't exist
-  ansible.builtin.file:
-    path: "{{ ACCOUNT_HOMEDIR.stdout }}/.config/systemd/user"
-    state: directory
-    mode: '0755'
-
 - name: Create the podman-pod(1)
   containers.podman.podman_pod:
     debug: no
-    generate_systemd:
-      path: "{{ ACCOUNT_HOMEDIR.stdout }}/.config/systemd/user/"
     infra: yes
     infra_conmon_pidfile: "{{ POD_INFRA_CONMON_PIDFILE }}"
     publish: "{{ POD_PORT }}"
@@ -62,8 +48,6 @@
   containers.podman.podman_container:
     debug: yes
     conmon_pidfile: "{{ MARIADB_CONMON_PIDFILE }}"
-    generate_systemd:
-      path: "{{ ACCOUNT_HOMEDIR.stdout }}/.config/systemd/user/"
     image: "{{ MARIADB_IMAGE }}"
     image_strict: yes
     pod: "{{ POD_NAME }}"
@@ -85,8 +69,6 @@
   containers.podman.podman_container:
     debug: no 
     conmon_pidfile: "{{ NC_CONMON_PIDFILE }}"
-    generate_systemd:
-      path: "{{ ACCOUNT_HOMEDIR.stdout }}/.config/systemd/user/"
     image: "{{ NC_IMAGE }}"
     image_strict: yes
     pod: "{{ POD_NAME }}"
