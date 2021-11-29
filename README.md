@@ -1,27 +1,29 @@
 Deploy Nextcloud with MariaDB in a Podman Pod
 =============================================
 
-Deploy Nextcloud and MariaDB container as podman-pod(1).
+With this ansible role you can deploy Nextcloud and MariaDB container in a podman-pod(1) to get a running Nextcloud instance ready to use from the local host. To reach this Nextcloud from a remote location you have to options:
 
-**Warning:** This role is still under development and not ready to use in
-production, yet. But comments and feedback on this role are much appreciated.
+ 1. Use a reverse proxy like NGINX to forward requests to your Nextcloud pod.
+ 2. Listen on all interfaces for incoming traffic for the pod.
 
-This role was tested on Fedora 35 and Debian 11 (Bullseye) so far. Please let
-me know if you run it with other Distributions and version, so I can add them
-to _meta/main.yml_.
+I strongly recommend option 1.
+
+This role was tested on Fedora 35 and Debian 11 (Bullseye) so far. Please let me know if you run it with other Distributions and version, so I can add them to _meta/main.yml_. Any feedback is welcome.
 
 Requirements
 ------------
 
 * Collection containers.podman
 
+To install this collection use: `ansible-galaxy collection install containers.podman`
+
 Role Variables
 --------------
 
 All variables needed to deploy a pod containing containers for Nextcloud and
-MariaDB are defined in _defaults/main.yml_ and filled with example values. You
-have to change this values or set them in _vars/main.yml_ to fit your needs.
-Please keep your passwords secret. Use ansible-vault(1) to protect them.
+MariaDB are defined in _defaults/main.yml_ and set to example values. You
+have to change these values or set them in _vars/main.yml_ to fit your needs.
+Please keep your passwords as a secret. Use ansible-vault(1) to protect them.
 
 ### Variables in defaults/main.yml
 
@@ -40,7 +42,7 @@ MYSQL_DATABASE: nextcloud
 MYSQL_USER: nextcloud
 MYSQL_PASSWORD: ToPSeCrEt2021!
 MYSQL_ROOT_PASSWORD: ToPSeCrEt2021!
-MYSQL_HOST: localhost
+MYSQL_HOST: 127.0.0.1
 
 # Vars for MariaDB container
 MARIADB_SYSTEMD_PATH: ~/.config/systemd/user/
@@ -75,6 +77,8 @@ NC_IMAGE: docker.io/library/nextcloud:22.2-apache
 NC_NAME: nextcloud
 ```
 
+With this default configuration podman will choose a random host port that is not in use to connect it with the port of the pod.
+
 Example Playbook
 ----------------
 
@@ -89,6 +93,8 @@ License
 -------
 
 GPL version 2 or later
+
+This role comes as it is, without any warranty. Use it at your own risk.
 
 Author Information
 ------------------
