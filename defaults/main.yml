@@ -36,6 +36,7 @@ SMTP_AUTHTYPE: LOGIN
 SMTP_NAME: bob@example.com
 SMTP_PASSWORD: MailSecret1!
 MAIL_FROM_ADDRESS: no-reply@example.com
+MAIL_DOMAIN: "@example.com"
 
 # Vars for podman-pod(1)
 POD_NAME: nc_pod
