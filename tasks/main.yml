@@ -90,6 +90,8 @@
       SMTP_NAME: "{{ SMTP_NAME }}"
       SMTP_PASSWORD: "{{ SMTP_PASSWORD }}"
       MAIL_FROM_ADDRESS: "{{ MAIL_FROM_ADDRESS }}"
+      OVERWRITEPROTOCOL: "{{ NEXTCLOUD_OVERWRITEPROTOCOL }}"
+      OVERWRITECLIURL: "{{ NEXTCLOUD_OVERWRITECLIURL }}"
     volume:
       - "{{ NC_HTML }}:/var/www/html:Z"
       - "{{ NC_APPS }}:/var/www/html/custom_apps:Z"
