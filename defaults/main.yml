@@ -29,14 +29,14 @@ NEXTCLOUD_OVERWRITECLIURL: ""
 NEXTCLOUD_TRUSTED_DOMAINS: ""
 
 # SMTP vars
-SMTP_HOST: smtp.example.com
-SMTP_SECURE: tls # ssl to use SSL, or tls zu use STARTTLS
-SMTP_PORT: 587 # (25, 465 for SSL, 587 for STARTTLS)
-SMTP_AUTHTYPE: LOGIN
-SMTP_NAME: bob@example.com
-SMTP_PASSWORD: MailSecret1!
-MAIL_FROM_ADDRESS: no-reply@example.com
-MAIL_DOMAIN: "@example.com"
+SMTP_HOST: "smtp.example.com"
+SMTP_SECURE: "tls" # ssl to use SSL, or tls zu use STARTTLS
+SMTP_PORT: "587" # (25, 465 for SSL, 587 for STARTTLS)
+SMTP_AUTHTYPE: "LOGIN"
+SMTP_NAME: "bob@example.com"
+SMTP_PASSWORD: "MailSecret1!"
+MAIL_FROM_ADDRESS: "no-reply"
+MAIL_DOMAIN: "example.com"
 
 # Vars for podman-pod(1)
 POD_NAME: nc_pod
