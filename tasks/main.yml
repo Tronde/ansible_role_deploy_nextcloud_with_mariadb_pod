@@ -43,6 +43,7 @@
     publish: "{{ POD_PORT }}"
     name: "{{ POD_NAME }}"
     state: started
+    recreate: yes
 
 - name: Create MariaDB container
   containers.podman.podman_container:
