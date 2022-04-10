@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  remote_user: jkastning
+  remote_user: root
   connection: local
   roles:
     - ansible_role_deploy_nextcloud_with_mariadb_pod

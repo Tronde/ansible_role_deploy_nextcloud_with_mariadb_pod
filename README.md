@@ -1,7 +1,7 @@
 Deploy Nextcloud with MariaDB in a Podman Pod
 =============================================
 
-With this ansible role you can deploy Nextcloud and MariaDB container in a podman-pod(1) to get a running Nextcloud instance ready to use from the local host. To reach this Nextcloud from a remote location you have to options:
+With this ansible role you can deploy Nextcloud and MariaDB container in a podman-pod(1) to get a running Nextcloud instance ready to use from the local host. To reach this Nextcloud from a remote location you have two options:
 
  1. Use a reverse proxy like NGINX to forward requests to your Nextcloud pod.
  2. Listen on all interfaces for incoming traffic for the pod.
@@ -82,7 +82,6 @@ With this default configuration podman will choose a random host port that is no
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       remote_user: root
