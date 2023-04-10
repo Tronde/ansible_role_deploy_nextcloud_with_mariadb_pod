@@ -18,7 +18,7 @@ MYSQL_HOST: 127.0.0.1
 
 # Vars for MariaDB container
 MARIADB_CONMON_PIDFILE: /tmp/mariadb_conmon.pid
-MARIADB_IMAGE: docker.io/library/mariadb:10.5.7
+MARIADB_IMAGE: docker.io/library/mariadb:10.11.2
 MARIADB_NAME: nc_mariadb
 
 # Nextcloud vars
@@ -45,5 +45,5 @@ POD_INFRA_CONMON_PIDFILE: /tmp/nc_pod_infra.pid
 
 # Vars for Nextcloud container
 NC_CONMON_PIDFILE: /tmp/nc_conmon.pid
-NC_IMAGE: docker.io/library/nextcloud:23-apache
+NC_IMAGE: docker.io/library/nextcloud:25-apache
 NC_NAME: nextcloud
