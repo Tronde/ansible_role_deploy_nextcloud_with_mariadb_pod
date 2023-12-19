@@ -35,6 +35,12 @@
     recreate: no
     debug: no
 
+- name: Pull latest Nextcloud image with tag production-apache
+  containers.podman.podman_image:
+    name: docker.io/library/nextcloud
+    tag: production-apache
+    state: present
+
 - name: Create the podman-pod(1)
   containers.podman.podman_pod:
     debug: no
