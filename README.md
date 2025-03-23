@@ -1,5 +1,7 @@
-Deploy Nextcloud with MariaDB in a Podman Pod
-=============================================
+[Archived] Deploy Nextcloud with MariaDB in a Podman Pod
+========================================================
+
+_Notice:_ This repository has been archived. Future work is going to happen in the Ansible Collection [tronde.nextcloud](https://codeberg.org/Tronde/nextcloud) at [codeberg.org](https://codeberg.org).
 
 With this ansible role you can deploy Nextcloud and MariaDB container in a podman-pod(1) to get a running Nextcloud instance ready to use from the local host. To reach this Nextcloud from a remote location you have two options:
 
